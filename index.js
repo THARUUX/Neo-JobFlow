@@ -34,7 +34,7 @@ app.post('/api/upload', (req, res) => {
         return res.status(400).json({ error: 'Please provide jobNo, bookName, and customer' });
     }
 
-    const status = 'in progress';
+    const status = 0;
     const query = `INSERT INTO jobs (jobNo, bookName, customer, status) VALUES (?, ?, ?, ?)`;
 
     connection.query(query, [jobNo, bookName, customer, status], (err, results) => {
@@ -81,14 +81,6 @@ app.get('/api/job/:id', (req, res) => {
 app.post('/api/update-job-status', (req, res) => {
     const { id, ...statusUpdates } = req.body;
 
-    const shouldSetStatusFinished = statusUpdates.delivery === true || statusUpdates.Invoice === true;
-
-    if (shouldSetStatusFinished) {
-        statusUpdates.status = 'Finished';
-    } else{
-        statusUpdates.status = 'In Progress';
-    }
-
     const query = `
         UPDATE jobs 
         SET ${Object.keys(statusUpdates).map(key => `${key} = ?`).join(', ')}
@@ -105,9 +97,36 @@ app.post('/api/update-job-status', (req, res) => {
     });
 });
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.post('/api/update-job', (req, res) => {
+    const { id, jobNo, bookName, customer } = req.body;
+
+    const query = `
+        UPDATE jobs 
+        SET jobNo = ?, bookName = ?, customer = ?
+        WHERE id = ?
+    `;
+    const values = [jobNo, bookName, customer, id];
+
+    connection.query(query, values, (err, results) => {
+        if (err) {
+            console.error('Error updating job status:', err);
+            return res.status(500).json({ error: 'Failed to update job ' });
+        }
+        res.status(200).json({ message: 'Job updated successfully' });
+    });
 });
+
+app.get('/:id', (req, res) => {
+    const askFor = req.params.id + '.html';
+    
+    res.sendFile(path.join(__dirname, 'public', askFor), (err) => {
+        if (err) {
+            res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+        }
+    });
+});
+
+
 
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
