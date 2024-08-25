@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Flow | NEO</title>
+    <link href="./src/output.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./src/app.js"></script>
+    <script src="./src/script.js"></script>
+</head>
+<body>
+    <div class="main min-w-screen min-h-screen bg-slate-200 flex justify-center items-center p-10">
+        <div class="cont w-96 rounded-lg shadow-lg bg-white">
+            <header class="w-100 text-center text-lime-500 border-b-2 border-lime-200 rounded-lg p-5">NEO Job Flow</header>
+            <div id="main" class="hidden">
+                <div class="search-cont w-100 p-2 flex">
+                    <input oninput="search(this)" id="searchBar" class="py-1 px-4 grow text-lime-800 bg-slate-100 rounded-full focus:outline-none w-100" type="text" placeholder="Search job...">
+                </div>
+                <div id="job_list" class="job_list max-h-96 p-2 flex flex-col gap-1 overflow-y-scroll border-b-2 border-lime-200 rounded-lg">
+                   
+                </div>
+                <form onsubmit="upload(event)" id="job-form" class="job-input w-100 p-2 flex flex-col gap-2" id="job-input-section">
+                    <input id="ji-job-no" class="py-1 px-4 grow text-lime-800 bg-slate-100 rounded-full focus:outline-none w-100" type="text" placeholder="Job Number" required>
+                    <input id="ji-book-name" class="py-1 px-4 grow text-lime-800 bg-slate-100 rounded-full focus:outline-none w-100" type="text" placeholder="Book Name" required>
+                    <input id="ji-customer" class="py-1 px-4 grow text-lime-800 bg-slate-100 rounded-full focus:outline-none w-100" type="text" placeholder="Customer Name" required>
+                    <button type="submit" id="ji-upload" class="py-1 grow rounded-full shadow-sm bg-lime-500 hover:bg-lime-300 text-white text-center">UPLOAD</button>
+                </form>
+            </div>
+
+            <div id="job-details">
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
