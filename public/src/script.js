@@ -26,11 +26,6 @@ function upload(event) {
     const bookName = document.getElementById('ji-book-name').value;
     const customer = document.getElementById('ji-customer').value;
 
-    if (!jobNo || !bookName || !customer) {
-        alert('Please fill out all fields.');
-        return;
-    }
-
     fetch('/api/upload', {
         method: 'POST',
         headers: {
