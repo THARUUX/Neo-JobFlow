@@ -51,6 +51,7 @@ function upload(event) {
 
 function fetchData() {
     loaderHandling('show');
+    
     fetch('/api/jobs')
         .then(response => response.json())
         .then(data => {
@@ -63,23 +64,26 @@ function fetchData() {
                 return;
             }
 
-            const inProgressJobs = data.filter(job => job.status == 0);
+            const jobs = data || [];
+
+            const inProgressJobs = jobs.filter(job => job.status == 0);
+            const finishedJobs = jobs.filter(job => job.status == 1);
+
             if (inProgressCountElement) {
                 inProgressCountElement.innerHTML = inProgressJobs.length;
             }
-            const finishedJobs = data.filter(job => job.status == 1);
             if (finishedCountElement) {
                 finishedCountElement.innerHTML = finishedJobs.length;
             }
-            
+
+            jobs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
             jobList.innerHTML = '';
-            data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-            data.forEach(job => {
-                const classFinished = job.status === 'Finished' ? 'bg-lime-200' : 'bg-slate-50';
-                //console.log(job.bookName , classFinished);
-            
+
+            jobs.forEach(job => {
+                const classFinished = job.status === 1 ? 'bg-lime-200' : 'bg-slate-50';
+
                 const jobItem = document.createElement('div');
-                
                 jobItem.classList.add(
                     'job',
                     classFinished,
@@ -93,7 +97,7 @@ function fetchData() {
                     'duration-300',
                     'cursor-pointer'
                 );
-            
+
                 jobItem.innerHTML = `
                     <div class="grow">
                         <div class="book-name text-lg text-lime-800">${job.bookName}</div>
@@ -101,21 +105,20 @@ function fetchData() {
                         <div class="time text-xs text-lime-600">${new Date(job.created_at).toLocaleString()}</div>
                     </div>
                     <div class="job-status text-xs text-lime-500 p-2">
-                          ${job.status == 1 ? 'Finished' : 'In Progress'}
+                        ${job.status === 1 ? 'Finished' : 'In Progress'}
                     </div>
                 `;
-            
+
                 jobItem.onclick = () => fetchJobDetails(job.id);
-            
+
                 jobList.appendChild(jobItem);
-
-                loaderHandling('hide');
             });
-            
 
+            loaderHandling('hide');
         })
         .catch(error => {
             console.error('Error fetching jobs:', error);
+            loaderHandling('hide'); 
         });
 }
 

@@ -31,7 +31,9 @@ function fetchDataInProgress() {
 
             tableData.innerHTML = '';
 
-            const inProgressJobs = data.filter(job => job.status == 0);
+            const jobs = data || [];
+
+            const inProgressJobs = jobs.filter(job => job.status == 0) || [];
             //console.log("inph", inProgressJobs);
 
             inProgressJobs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -78,9 +80,11 @@ function fetchDataFinished() {
                 return;
             }
 
+            const jobs = data || [];
+
             tableData.innerHTML = '';
 
-            const finishedJobs = data.filter(job => job.status == 1);
+            const finishedJobs = jobs.filter(job => job.status == 1) || [];
             //console.log("inph", finishedJobs);
 
             finishedJobs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -126,11 +130,13 @@ function fetchDataReport() {
                 return;
             }
 
+            const jobs = data || [];
+
             tableData.innerHTML = '';
 
-            data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            jobs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
-            data.forEach(job => {
+            jobs.forEach(job => {
                 const row = document.createElement('tr');
                 row.classList.add('hover:bg-slate-100', 'text-gray-800', (job.status == 0 ? 'bg-slate-50' : 'bg-lime-200'));
 
@@ -181,11 +187,13 @@ function fetchDataManage() {
                 return;
             }
 
+            const jobs = data || [];
+
             tableData.innerHTML = '';
 
-            data.sort((a, b) => new Date(a.jobNo) - new Date(b.jobNo));
+            jobs.sort((a, b) => new Date(a.jobNo) - new Date(b.jobNo));
 
-            data.forEach(job => {
+            jobs.forEach(job => {
                 const row = document.createElement('tr');
                 row.classList.add('hover:bg-slate-100', 'text-gray-800', 'bg-slate-50');
 
