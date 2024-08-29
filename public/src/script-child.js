@@ -372,7 +372,7 @@ function update(event){
     })
     .then(response => response.json())
     .then(result => {
-        console.log('Data updated successfully:', result);
+        //console.log('Data updated successfully:', result);
         refreshPage();
     })
     .catch(error => {
@@ -385,5 +385,25 @@ function refreshPage() {
 }
 
 function deleteJob(jobId) {
-    alert('This function is still under development. Please contact the developer. (THARUUX)');
+    loaderHandling('show');
+
+    const data = {
+        id: jobId
+    }
+
+    fetch('/api/delete-job', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log('Data deleting successfully:', result);
+        refreshPage();
+    })
+    .catch(error => {
+        console.error('Error updating status:', error);
+    });
 }

@@ -116,6 +116,24 @@ app.post('/api/update-job', (req, res) => {
     });
 });
 
+app.post('/api/delete-job', (req, res) => {
+    const { id } = req.body;
+
+    const query = `
+        DELETE FROM jobs
+        WHERE id = ?
+    `;
+    const values = [ id];
+
+    connection.query(query, values, (err, results) => {
+        if (err) {
+            console.error('Error updating job status:', err);
+            return res.status(500).json({ error: 'Failed to update job ' });
+        }
+        res.status(200).json({ message: 'Job delete successfully' });
+    });
+});
+
 app.get('/:id', (req, res) => {
     const askFor = req.params.id + '.html';
     
