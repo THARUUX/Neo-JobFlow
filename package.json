@@ -12,9 +12,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "mysql2": "^3.11.0"
+    "express-session": "^1.18.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
+    "mysql2": "^3.11.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.10"

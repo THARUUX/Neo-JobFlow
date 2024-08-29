@@ -1,0 +1,80 @@
+<!--    Developed and designed by THARUUX   -->
+<!--    https://github.com/THARUUX/Neo-JobFlow.git   -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Flow | NEO</title>
+    <link href="./src/output.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="./src/app.js"></script>
+    <script src="./src/login.js"></script>
+    <link rel="shortcut icon" href="https://www.neo.lk/wp-content/uploads/2021/11/cropped-NEO-logo-75px.png" type="image/x-icon">
+</head>
+<body>
+    <div class="loader fixed h-screen w-screen justify-center items-center bg-slate-100/50 z-10 hidden" id="loader">
+        <div class="spinner">
+            <div></div>   
+            <div></div>    
+            <div></div>    
+            <div></div>    
+        </div>
+    </div>
+    <div class="main min-w-screen h-screen bg-slate-200 flex justify-center items-center" style="
+    background-image: url('https://www.neo.lk/wp-content/uploads/2021/12/neo-graphics-digital-and-offset-printing-head-office-delkanda-nugogoda.jpg');
+    background-size: cover;"
+    >
+        <div class="absolute w-screen h-screen bg-white/50"></div>
+        <div class="max-w-screen-sm min-w-96 min-h-96 rounded-lg shadow-xl flex flex-col z-20" style="
+        background: rgba(255,255,255,0.1);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.25);"
+        >
+            <header class="w-full text-center py-3 flex items-center justify-center gap-5 rounded-lg border-b-2 border-lime-300 text-4xl text-lime-500 relative">
+                <img src="https://www.neo.lk/wp-content/uploads/2021/11/cropped-NEO-logo-75px.png" alt="Neo" class="h-15 w-15 stroke-slate-50">
+                Login
+            </header>
+            <form action="/login" method="POST" class="p-3 flex flex-col gap-3 justify-center grow">
+            <div id="error" class="error-message w-full text-red-600 text-center"></div>
+            <script>
+                const urlParams = new URLSearchParams(window.location.search);
+                const errorMessage = urlParams.get('error');
+        
+                if (errorMessage) {
+                    document.getElementById('error').textContent = errorMessage;
+                }
+            </script>
+                <label class="input input-bordered flex items-center gap-2 bg-slate-100 text-lime-400">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      class="h-4 w-4 opacity-70">
+                      <path
+                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+                    </svg>
+                    <input id="username" type="text" name="username" class="grow" placeholder="Username" />
+                  </label>
+                  <label class="input input-bordered flex items-center gap-2 bg-slate-100 text-lime-400">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      class="h-4 w-4 opacity-70">
+                      <path
+                        fill-rule="evenodd"
+                        d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
+                        clip-rule="evenodd" />
+                    </svg>
+                    <input id="password" type="password" name="password" class="grow" value="" placeholder="Password" />
+                  </label>
+                  <button type="submit" class="mt-4 bg-lime-500 text-white rounded-full py-2 shadow-lg">LOGIN</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

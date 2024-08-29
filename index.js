@@ -3,6 +3,9 @@ const path = require('path');
 const mysql = require('mysql2');
 const { parse } = require('querystring');
 require('dotenv').config();
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const bcrypt = require('bcryptjs');
 
 const PORT = process.env.PORT || 3000;
 
@@ -134,7 +137,8 @@ app.post('/api/delete-job', (req, res) => {
     });
 });
 
-app.get('/:id', (req, res) => {
+
+/*app.get('/:id', (req, res) => {
     const askFor = req.params.id + '.html';
     
     res.sendFile(path.join(__dirname, 'public', askFor), (err) => {
@@ -142,8 +146,86 @@ app.get('/:id', (req, res) => {
             res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
         }
     });
+});*/
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({
+    secret: 'neo@jobflow#1234',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } 
+}));
+
+
+let users = [
+    {
+        id: 1,
+        username: 'admin',
+        password: bcrypt.hashSync('neo1234', 10) // Hashing the password before storing it
+    }
+];
+
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    const user = users.find(u => u.username === username);
+
+    if (user) {
+        //console.log('User found:', user); // Debugging
+        bcrypt.compare(password, user.password, (err, isMatch) => {
+            if (err) throw err;
+
+            if (isMatch) {
+                //console.log('Password match'); // Debugging
+                req.session.user = { id: user.id, username: user.username };
+                res.redirect('/index');
+            } else {
+                //console.log('Password does not match'); // Debugging
+                res.redirect('/login?error=Invalid credentials');
+            }
+        });
+    } else {
+        //console.log('User not found'); // Debugging
+        res.redirect('/login?error=Invalid credentials');
+    }
 });
 
+app.get('/', (req, res) => {
+    if (req.session.user) {
+        res.redirect('/index'); 
+    } else {
+        res.redirect('/login'); 
+    }
+});
+
+app.get('/:id', (req, res) => {
+    if (!req.params.id){
+        res.redirect('/index');
+    } else if (req.params.id === 'logout'){
+        req.session.destroy(err => {
+            if (err) {
+                return res.status(500).send('Failed to logout');
+            }
+            res.clearCookie('connect.sid');
+            res.redirect('/login');
+        }); 
+    } else if (req.params.id === 'login'){
+        res.sendFile(path.join(__dirname, 'public', 'login.html'), (err) => {
+            if (err) {
+                res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+            }
+        });
+    } else if (req.session.user) {
+        const askFor = req.params.id + '.html';
+        res.sendFile(path.join(__dirname, 'public', askFor), (err) => {
+            if (err) {
+                res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+            }
+        });
+    } else {
+        res.redirect('/login');
+    }
+});
 
 
 app.use((req, res) => {

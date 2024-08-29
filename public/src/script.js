@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    if (window.location.pathname === '/') {
+    if (window.location.pathname === '/index') {
         fetchData();
+    } else if (window.location.pathname === '/'){
+        window.location.href = '/index';
     }
 
     const path = window.location.pathname;
