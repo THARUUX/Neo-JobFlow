@@ -138,7 +138,7 @@ app.post('/api/delete-job', (req, res) => {
 });
 
 
-/*app.get('/:id', (req, res) => {
+app.get('/:id', (req, res) => {
     const askFor = req.params.id + '.html';
     
     res.sendFile(path.join(__dirname, 'public', askFor), (err) => {
@@ -146,7 +146,7 @@ app.post('/api/delete-job', (req, res) => {
             res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
         }
     });
-});*/
+});
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -190,7 +190,7 @@ app.post('/login', (req, res) => {
     }
 });
 
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
     if (req.session.user) {
         res.redirect('/index'); 
     } else {
@@ -225,7 +225,7 @@ app.get('/:id', (req, res) => {
     } else {
         res.redirect('/login');
     }
-});
+});*/
 
 
 app.use((req, res) => {
