@@ -83,7 +83,7 @@ function fetchData() {
             jobList.innerHTML = '';
 
             jobs.forEach(job => {
-                const classFinished = job.status === 1 ? 'bg-lime-200' : 'bg-slate-50';
+                const classFinished = job.status == 1 ? 'bg-lime-200' : 'bg-slate-50';
 
                 const jobItem = document.createElement('div');
                 jobItem.classList.add(
@@ -107,7 +107,7 @@ function fetchData() {
                         <div class="time text-xs text-lime-600">${new Date(job.created_at).toLocaleString()}</div>
                     </div>
                     <div class="job-status text-xs text-lime-500 p-2">
-                        ${job.status === 1 ? 'Finished' : 'In Progress'}
+                        ${job.status == 1 ? 'Finished' : 'In Progress'}
                     </div>
                 `;
 
