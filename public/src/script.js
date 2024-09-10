@@ -83,7 +83,7 @@ function fetchData() {
             jobList.innerHTML = '';
 
             jobs.forEach(job => {
-                const classFinished = job.status == 1 ? 'bg-lime-200' : 'bg-slate-50';
+                const classFinished = job.status == 1 ? 'hidden' : 'bg-slate-50';
 
                 const jobItem = document.createElement('div');
                 jobItem.classList.add(
