@@ -3,7 +3,6 @@ Job flow for offset printing ( Neo Graphics (Pvt) Ltd )
 ## DEVELOPED BY THARUUX
 
 ---
-<a href="https://neo-job-flow.vercel.app/index" title="Go to Source">Visit the live view</a>
 <br>
 
 
