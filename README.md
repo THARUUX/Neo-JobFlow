@@ -7,7 +7,7 @@ Job flow for offset printing ( Neo Graphics (Pvt) Ltd )
 
 
 <div align="center">
-        <img alt="thanks for your visit" src="https://github.com/THARUUX/Neo-JobFlow/blob/main/Screenshot_20240915_210637.png?raw=true">
+        <img alt="thanks for your visit" src="https://github.com/THARUUX/Neo-JobFlow/blob/main/Screenshot_20240916_140224.png?raw=true">
 </div>
 <br>
 <div align="center">
