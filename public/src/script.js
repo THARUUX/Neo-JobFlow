@@ -66,7 +66,7 @@ function fetchData() {
                 return;
             }
 
-            const jobs = data || [];
+            const jobs = Array.isArray(data) ? data : [];
 
             const inProgressJobs = jobs.filter(job => job.status == 0);
             const finishedJobs = jobs.filter(job => job.status == 1);
